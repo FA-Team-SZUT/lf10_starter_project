@@ -1,0 +1,22 @@
+<h1>Qualification</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Skillset Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(quali of qualifications$ | async; track quali.id ){
+    <tr>
+      <th scope="row">
+        {{ quali.id }}
+      </th>
+      <td>{{ quali.skill }}</td>
+      <td><button>Edit</button></td>
+      <td><button>Delete</button></td>
+    </tr>
+    }
+  </tbody>
+</table>
