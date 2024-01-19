@@ -3,11 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { QualificationsComponent } from './qualifications/qualifications.component';
-
+import { LandingPageComponent } from './landing-page/landing-page.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, EmployeeListComponent, QualificationsComponent],
+  imports: [
+    CommonModule,
+    EmployeeListComponent,
+    QualificationsComponent,
+    LandingPageComponent,
+    RouterOutlet,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
