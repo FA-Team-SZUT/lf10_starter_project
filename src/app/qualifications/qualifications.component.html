@@ -14,9 +14,56 @@
         {{ quali.id }}
       </th>
       <td>{{ quali.skill }}</td>
-      <td><button>Edit</button></td>
-      <td><button>Delete</button></td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+          (click)="handleProps(quali.id, quali.skill)"
+        >
+          Open modal
+        </button>
+      </td>
+      <td>
+        <button (click)="deleteQualification(quali.id, quali.skill)">
+          Delete
+        </button>
+      </td>
     </tr>
+
     }
   </tbody>
 </table>
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="text" [value]="skillProp" #box />
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-light"
+          data-bs-dismiss="modal"
+          (click)="handleSave(idProp, box.value)"
+        >
+          Save Changes
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
