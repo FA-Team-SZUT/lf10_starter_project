@@ -1,5 +1,8 @@
 <h1>Qualification</h1>
-
+<div class="d-flex justify-content-end">
+  <input type="text" placeholder="Filter by skill" [(ngModel)]="searchText" />
+  <button disabled class="btn btn-info m-1">Filter Skill</button>
+</div>
 <table class="table">
   <thead>
     <tr>
@@ -8,7 +11,8 @@
     </tr>
   </thead>
   <tbody>
-    @for(quali of qualifications$ | async; track quali.id ){
+    @for(quali of qualifications$ | async | appFilter:searchText; track quali.id
+    ){
     <tr>
       <th scope="row">
         {{ quali.id }}

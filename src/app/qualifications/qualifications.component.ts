@@ -3,16 +3,23 @@ import { CommonModule } from '@angular/common';
 import { DataRequest } from '../dataRequest.service';
 import { Qualification } from '../Qualification';
 import { Observable } from 'rxjs';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { AppFilterPipe } from '../app-filter.pipe';
 
 @Component({
   selector: 'app-qualifications',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AppFilterPipe, FormsModule],
   templateUrl: './qualifications.component.html',
   styleUrl: './qualifications.component.css',
 })
 export class QualificationsComponent {
+  searchText = '';
   handleSubmit() {
     if (this.profileForm.value.skillSet) {
       this.reqService
