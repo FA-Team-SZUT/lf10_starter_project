@@ -37,6 +37,9 @@ export class DataRequest {
       skill: skillSet,
     });
   }
+  createQualification(skillSet: string) {
+    return this.http.post<any>(`/backend/qualifications`, { skill: skillSet });
+  }
   findEmployeeByQualification(id: number) {
     return this.http.get<any>(`/backend/qualifications/${id}/employees`);
   }

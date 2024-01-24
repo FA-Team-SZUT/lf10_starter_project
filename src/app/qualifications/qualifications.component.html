@@ -67,3 +67,22 @@
     </div>
   </div>
 </div>
+
+<form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
+  <div
+    class="form-group d-flex justify-content-center flex-column align-items-center"
+  >
+    <div class="col-6 text-center">
+      <label for="skillSet"
+        ><h2 class="text-center">adding Qualification</h2></label
+      >
+      <input
+        class="form-control"
+        id="skillSet"
+        type="text"
+        formControlName="skillSet"
+      />
+    </div>
+    <button class="btn btn-primary m-2" type="submit">Add and Save</button>
+  </div>
+</form>

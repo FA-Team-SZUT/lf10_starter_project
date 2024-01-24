@@ -3,19 +3,33 @@ import { CommonModule } from '@angular/common';
 import { DataRequest } from '../dataRequest.service';
 import { Qualification } from '../Qualification';
 import { Observable } from 'rxjs';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-qualifications',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './qualifications.component.html',
   styleUrl: './qualifications.component.css',
 })
 export class QualificationsComponent {
+  handleSubmit() {
+    if (this.profileForm.value.skillSet) {
+      this.reqService
+        .createQualification(this.profileForm.value.skillSet)
+        .subscribe(
+          () => (this.qualifications$ = this.reqService.getQualifications())
+        );
+    }
+  }
   skillProp = '';
   idProp: number = -1;
-  constructor(private reqService: DataRequest) {}
   qualifications$: Observable<Qualification[]> = new Observable();
+  constructor(private reqService: DataRequest) {}
+
+  profileForm = new FormGroup({
+    skillSet: new FormControl(''),
+  });
 
   ngOnInit() {
     this.qualifications$ = this.reqService.getQualifications();
