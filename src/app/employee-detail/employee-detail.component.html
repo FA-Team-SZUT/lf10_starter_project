@@ -1,0 +1,8 @@
+<div *ngIf="selectedEmployee">
+  <h2>{{selectedEmployee.name}} details!</h2>
+  <div><label>id: </label>{{selectedEmployee.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="selectedEmployee.name" placeholder="name"/>
+  </div>
+</div>

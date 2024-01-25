@@ -19,4 +19,9 @@ export class DataRequest {
       withCredentials: true,
     });
   }
+  getEmployeesById(id: string | null) {
+    return this.http.get<Employee[]>('/backend/employees/' + id, {
+      withCredentials: true,
+    });
+  }
 }
