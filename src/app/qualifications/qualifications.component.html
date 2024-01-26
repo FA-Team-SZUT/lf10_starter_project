@@ -3,7 +3,7 @@
   <input type="text" placeholder="Filter by skill" [(ngModel)]="searchText" />
   <button disabled class="btn btn-info m-1">Filter Skill</button>
 </div>
-<table class="table">
+<table class="table m-2">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -11,22 +11,21 @@
     </tr>
   </thead>
   <tbody>
-    @for(quali of qualifications$ | async | appFilter:searchText; track quali.id
-    ){
-    <tr>
-      <th scope="row">
+    @for ( quali of qualifications$ | async | appFilter: searchText; track
+    quali.id ) {
+    <tr class="border-top">
+      <th scope="row" class="idSearch" (dblclick)="handleNav(quali.id)">
         {{ quali.id }}
       </th>
       <td>{{ quali.skill }}</td>
       <td>
         <button
-          type="button"
           class="btn btn-primary"
           data-bs-toggle="modal"
           data-bs-target="#myModal"
           (click)="handleProps(quali.id, quali.skill)"
         >
-          Open modal
+          Edit
         </button>
       </td>
       <td>
@@ -35,7 +34,6 @@
         </button>
       </td>
     </tr>
-
     }
   </tbody>
 </table>

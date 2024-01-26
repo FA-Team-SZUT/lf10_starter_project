@@ -1,0 +1,27 @@
+<h1>
+  Employees search Result based on
+  <p class="text text-primary d-inline">{{ qualification }}</p>
+</h1>
+<button class="btn btn-secondary mb-5 mt-5" (click)="handleGoBack()">
+  <----------- Go Back
+</button>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">firstname</th>
+      <th scope="col">lastname</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(employ of searchResp ; track $index ){
+    <tr>
+      <th scope="row">
+        {{ employ.id }}
+      </th>
+      <td>{{ employ.firstName }}</td>
+      <td>{{ employ.lastName }}</td>
+    </tr>
+    }
+  </tbody>
+</table>

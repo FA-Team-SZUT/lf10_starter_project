@@ -1,25 +1,42 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DataRequest } from '../dataRequest.service';
-import { Qualification } from '../Qualification';
-import { Observable } from 'rxjs';
+import { Component } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { DataRequest } from "../dataRequest.service";
+import { Qualification } from "../Qualification";
+import { Observable } from "rxjs";
 import {
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-} from '@angular/forms';
-import { AppFilterPipe } from '../app-filter.pipe';
+} from "@angular/forms";
+import { AppFilterPipe } from "../app-filter.pipe";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-qualifications',
+  selector: "app-qualifications",
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, AppFilterPipe, FormsModule],
-  templateUrl: './qualifications.component.html',
-  styleUrl: './qualifications.component.css',
+  templateUrl: "./qualifications.component.html",
+  styleUrl: "./qualifications.component.css",
 })
 export class QualificationsComponent {
-  searchText = '';
+  searchText = "";
+  skillProp = "";
+  idProp: number = -1;
+  qualifications$: Observable<Qualification[]> = new Observable();
+  profileForm = new FormGroup({
+    skillSet: new FormControl(""),
+  });
+  constructor(private reqService: DataRequest, private router: Router) {}
+
+  ngOnInit() {
+    this.qualifications$ = this.reqService.getQualifications();
+  }
+  handleNav(id: number) {
+    this.reqService.searchEmployee$.next(id);
+    this.router.navigate(["/", "searchEmployees"]);
+  }
+
   handleSubmit() {
     if (this.profileForm.value.skillSet) {
       this.reqService
@@ -28,18 +45,6 @@ export class QualificationsComponent {
           () => (this.qualifications$ = this.reqService.getQualifications())
         );
     }
-  }
-  skillProp = '';
-  idProp: number = -1;
-  qualifications$: Observable<Qualification[]> = new Observable();
-  constructor(private reqService: DataRequest) {}
-
-  profileForm = new FormGroup({
-    skillSet: new FormControl(''),
-  });
-
-  ngOnInit() {
-    this.qualifications$ = this.reqService.getQualifications();
   }
 
   handleProps(id: number | undefined, skill: string | undefined) {
@@ -60,7 +65,7 @@ export class QualificationsComponent {
   deleteQualification(id: number | undefined, skillSet: string | undefined) {
     if (id) {
       this.reqService
-        .handleDeleteOfQualification(id, skillSet ?? '')
+        .handleDeleteOfQualification(id, skillSet ?? "")
         .subscribe(
           () => (this.qualifications$ = this.reqService.getQualifications())
         );
