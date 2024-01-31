@@ -1,0 +1,10 @@
+.headerContainer {
+   min-height: 4rem;
+}
+@media (max-width: 576px) {
+   .offcanvas-size {
+     --bs-offcanvas-width: 12rem; /* adjust this value as you like */
+   }
+ }
+ 
+  
