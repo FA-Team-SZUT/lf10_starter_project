@@ -1,7 +1,7 @@
-<div class="headerContainer border-bottom">
-  <nav class="navbar navbar-light bg-light fixed-top">
+<div class="headerContainer border-bottom mb-3">
+  <nav class="navbar fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="">Loggo</a>
+      <a class="navbar-brand" routerLink=""><img src="../../assets/img/logo.jpeg" height="45" width="45"/></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -30,14 +30,17 @@
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link"
                 aria-current="page"
+                data-bs-dismiss="offcanvas"
                 [routerLink]="['/', 'employees']"
                 >Employees</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/', 'qualifications']"
+              <a class="nav-link"
+                 data-bs-dismiss="offcanvas"
+                 [routerLink]="['/', 'qualifications']"
                 >Qualifications</a
               >
             </li>
