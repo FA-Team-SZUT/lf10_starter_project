@@ -1,7 +1,13 @@
-<div class="headerContainer border-bottom">
+<div class="headerContainer border-bottom mb-3">
   <nav class="navbar fixed-top">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="">Loggo</a>
+      <a class="navbar-brand" routerLink=""
+        ><img
+          alt="logoOfCompany"
+          src="../../assets/img/logo.jpeg"
+          height="45"
+          width="45"
+      /></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -31,19 +37,14 @@
             <li class="nav-item">
               <a
                 class="nav-link active"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
                 aria-current="page"
+                data-bs-dismiss="offcanvas"
                 [routerLink]="['/', 'employees']"
                 >Employees</a
               >
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
-                [routerLink]="['/', 'qualifications']"
+              <a class="nav-link" [routerLink]="['/', 'qualifications']"
                 >Qualifications</a
               >
             </li>
