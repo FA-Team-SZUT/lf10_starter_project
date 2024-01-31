@@ -1,5 +1,5 @@
 <h1>Qualification</h1>
-<div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end my-4">
   <input type="text" placeholder="Filter by skill" [(ngModel)]="searchText" />
   <button disabled class="btn btn-info m-1">Filter Skill</button>
 </div>
@@ -114,7 +114,7 @@
   </div>
 </div>
 
-<form [formGroup]="profileForm" (ngSubmit)="handleSubmit()">
+<form [formGroup]="profileForm" (ngSubmit)="handleSubmit()" class="mt-4">
   <div
     class="form-group d-flex justify-content-center flex-column align-items-center"
   >

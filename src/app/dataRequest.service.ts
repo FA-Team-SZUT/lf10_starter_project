@@ -3,7 +3,7 @@ import { Employee } from "./Employee";
 import { BehaviorSubject, EMPTY, forkJoin, of } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Qualification } from "./Qualification";
-import { catchError, switchMap } from "rxjs/operators";
+import { catchError, defaultIfEmpty, switchMap } from "rxjs/operators";
 
 interface EmployeeResp {
   id: number;
@@ -47,12 +47,18 @@ export class DataRequest {
         if (data.employees) {
           // create an array of observables for deleting qualifications by employee id
           const deleteObservables = data.employees.map((emp: Employee) =>
-            this.deleteQualificationById(emp.id, skillSet)
+            this.deleteQualificationById(emp.id, skillSet).pipe(
+              // use defaultIfEmpty to provide a fallback value for empty observables
+              defaultIfEmpty(null)
+            )
           );
-          // use forkJoin to wait for all observables to complete
-          return forkJoin(deleteObservables);
+
+          return forkJoin(deleteObservables).pipe(
+            // use defaultIfEmpty to provide a fallback value for empty forkJoin
+            defaultIfEmpty([])
+          );
         } else {
-          // return an empty observable if no employees are found
+          console.log("an Error has occured with database");
           return EMPTY;
         }
       }),
@@ -88,13 +94,13 @@ export class DataRequest {
     });
   }
   getEmployeesById(id: string | null) {
-    return this.http.get<Employee>('/backend/employees/' + id, {
+    return this.http.get<Employee>("/backend/employees/" + id, {
       withCredentials: true,
     });
   }
 
   deleteEmployee(id: number | undefined) {
-    return this.http.delete('/backend/employees/' + id, {
+    return this.http.delete("/backend/employees/" + id, {
       withCredentials: true,
     });
   }
