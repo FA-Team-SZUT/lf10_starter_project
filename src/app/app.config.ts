@@ -8,7 +8,7 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { initializeKeycloak } from './util/keycloak-init';
-import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -3,17 +3,18 @@ import { Qualification } from './Qualification';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { authGuardGuard } from './auth-guard.guard';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-import {EmployeeDetailComponent} from "./employee-detail/employee-detail.component";
+import { EmployeeDetailComponent } from "./employee-detail/employee-detail.component";
+import { EmployeeSearchResultComponent } from "./employee-search-result/employee-search-result.component";
 
 export const routes: Routes = [
-  { path: '', component: LandingPageComponent },
+  { path: "", component: LandingPageComponent },
   {
-    path: 'qualifications',
-    component: Qualification,
+    path: "qualifications",
+    component: QualificationsComponent,
     canActivate: [authGuardGuard],
   },
   {
-    path: 'employees',
+    path: "employees",
     component: EmployeeListComponent,
     canActivate: [authGuardGuard],
   },
@@ -27,4 +28,8 @@ export const routes: Routes = [
     component: EmployeeCreateComponent,
     canActivate: [authGuardGuard],
   }*/
+    path: "searchEmployees",
+    component: EmployeeSearchResultComponent,
+    canActivate: [authGuardGuard],
+  },
 ];
