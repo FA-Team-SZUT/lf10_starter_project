@@ -7,5 +7,5 @@ export class Employee {
               public city?: string,
               public phone?: string,
               public skillSet?: { skill: string, id: number }[]) {
-  }
-
+  };
+}

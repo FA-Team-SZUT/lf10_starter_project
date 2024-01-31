@@ -5,6 +5,7 @@ import { authGuardGuard } from './auth-guard.guard';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeDetailComponent } from "./employee-detail/employee-detail.component";
 import { EmployeeSearchResultComponent } from "./employee-search-result/employee-search-result.component";
+import {QualificationsComponent} from "./qualifications/qualifications.component";
 
 export const routes: Routes = [
   { path: "", component: LandingPageComponent },
@@ -28,6 +29,7 @@ export const routes: Routes = [
     component: EmployeeCreateComponent,
     canActivate: [authGuardGuard],
   }*/
+  {
     path: "searchEmployees",
     component: EmployeeSearchResultComponent,
     canActivate: [authGuardGuard],
