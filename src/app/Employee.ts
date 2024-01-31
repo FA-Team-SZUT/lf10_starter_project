@@ -1,5 +1,6 @@
 export class Employee {
-  constructor(public id?: number,
+  
+  constructor(public id: number,
               public lastName?: string,
               public firstName?: string,
               public street?: string,
@@ -8,4 +9,5 @@ export class Employee {
               public phone?: string,
               public skillSet?: { skill: string, id: number }[]) {
   };
+
 }
