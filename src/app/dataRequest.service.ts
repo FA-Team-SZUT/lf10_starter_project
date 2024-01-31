@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Employee } from "./Employee";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, EMPTY, forkJoin, of } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Qualification } from "./Qualification";
+import { catchError, switchMap } from "rxjs/operators";
+
 interface EmployeeResp {
   id: number;
   lastName: string;
@@ -25,24 +27,40 @@ export class DataRequest {
   constructor(private http: HttpClient) {}
   getEmployees() {
     let val = this.http.get<any>("/backend/employees");
-    console.log("what is here", val);
     return val;
   }
   getQualifications() {
     return this.http.get<Qualification[]>("/backend/qualifications");
   }
   deleteQualification(id: number) {
-    return this.http.delete<any>(`/backend/qualifications/${id}`);
+    return this.http.delete<any>(`/backend/qualifications/${id}`).pipe(
+      // use catchError to handle errors
+      catchError((error) => {
+        // return a fallback value or an error message
+        return of({ message: "Failed to delete qualification" });
+      })
+    );
   }
   handleDeleteOfQualification(id: number, skillSet: string) {
-    this.findEmployeeByQualification(id).subscribe((data) => {
-      data.employees.forEach((emp: Employee) => {
-        if (emp.id) {
-          this.deleteQualificationById(emp.id, skillSet).subscribe();
+    return this.findEmployeeByQualification(id).pipe(
+      switchMap((data) => {
+        if (data.employees) {
+          // create an array of observables for deleting qualifications by employee id
+          const deleteObservables = data.employees.map((emp: Employee) =>
+            this.deleteQualificationById(emp.id, skillSet)
+          );
+          // use forkJoin to wait for all observables to complete
+          return forkJoin(deleteObservables);
+        } else {
+          // return an empty observable if no employees are found
+          return EMPTY;
         }
-      });
-    });
-    return this.deleteQualification(id);
+      }),
+      // use switchMap or mergeMap to switch or merge the inner observables
+      switchMap(() => {
+        return this.deleteQualification(id);
+      })
+    );
   }
 
   updateQualification(id: number, skillSet: string) {
