@@ -31,8 +31,6 @@ export class QualificationsComponent {
 
   ngOnInit() {
     this.qualifications$ = this.reqService.getQualifications();
-
-    this.reqService.getEmployees().subscribe((data) => console.log(data));
   }
   handleNav(id: number) {
     this.reqService.searchEmployee$.next(id);

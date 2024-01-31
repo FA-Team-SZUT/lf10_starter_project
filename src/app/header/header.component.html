@@ -31,13 +31,19 @@
             <li class="nav-item">
               <a
                 class="nav-link active"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
                 aria-current="page"
                 [routerLink]="['/', 'employees']"
                 >Employees</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['/', 'qualifications']"
+              <a
+                class="nav-link"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                [routerLink]="['/', 'qualifications']"
                 >Qualifications</a
               >
             </li>

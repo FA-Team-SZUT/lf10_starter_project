@@ -33,7 +33,6 @@ export class DataRequest {
     return this.http.get<Qualification[]>("/backend/qualifications");
   }
   deleteQualification(id: number) {
-    console.log("getting called here");
     return this.http.delete<any>(`/backend/qualifications/${id}`).pipe(
       // use catchError to handle errors
       catchError((error) => {
@@ -45,7 +44,6 @@ export class DataRequest {
   handleDeleteOfQualification(id: number, skillSet: string) {
     return this.findEmployeeByQualification(id).pipe(
       switchMap((data) => {
-        console.log(data);
         if (data.employees) {
           // create an array of observables for deleting qualifications by employee id
           const deleteObservables = data.employees.map((emp: Employee) =>
