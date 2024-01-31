@@ -4,7 +4,7 @@ import { DataRequest } from '../dataRequest.service';
 import { FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EmployeeListContentComponent} from "../employee-list-content/employee-list-content.component";
 import {Employee} from "../Employee";
-import {Iemployee} from "../iemployee";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-employee-list',
@@ -18,40 +18,60 @@ export class EmployeeListComponent implements OnInit{
   employeeList!: Employee[];
   filteredEmployeeList!: Employee[];
 
+  filterOptions: string = 'name';
+
   currentPage: number = 1;
   itemsPerPage: number = 10;
   totalPages: number = 0;
-  constructor(private reqService: DataRequest) {
+  constructor(private reqService: DataRequest, private router: Router) {
   }
   ngOnInit():void {
     this.getEmployees();
-    this.initializePaginator();
   }
-
   filterResults(text: string) {
     if(!text) {
       this.filteredEmployeeList = this.employeeList;
+      this.initializePaginator();
+      return;
+    } else if (this.filteredEmployeeList) {
+      let filteredList = this.employeeList.filter((employee) => {
+        switch(this.filterOptions) {
+          case 'name':
+            return employee.firstName?.toLowerCase().includes(text.toLowerCase()) || employee.lastName?.toLowerCase().includes(text.toLowerCase());
+          case 'skill':
+            return employee.skillSet && employee.skillSet.some(skillObj => skillObj.skill.toLowerCase().includes(text.toLowerCase()));
+          default:
+            return false;
+        }
+      });
+      this.filteredEmployeeList = filteredList;
+      this.initializePaginator();
     }
-    this.filteredEmployeeList = this.employeeList.filter((employeeList) => {
-      employeeList?.firstName.toLowerCase().includes(text.toLowerCase());
-    });
-    this.initializePaginator();
   }
 
   private getEmployees() {
     this.reqService.getEmployees().subscribe((data) => {
       this.employeeList = data;
+      this.filteredEmployeeList = this.employeeList;
+      this.initializePaginator();
+      this.updatePage();
     });
-    this.filteredEmployeeList = this.employeeList;
   }
 
   private initializePaginator() {
     this.totalPages = Math.ceil(this.filteredEmployeeList.length / this.itemsPerPage);
   }
 
+  updatePage() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    this.filteredEmployeeList = this.employeeList.slice(start, end);
+  }
+
   goToPage(pageNumber: number) {
     if(pageNumber >= 1 && pageNumber <= this.totalPages) {
       this.currentPage = pageNumber;
+      this.updatePage();
     }
   }
 
@@ -61,5 +81,13 @@ export class EmployeeListComponent implements OnInit{
       pages.push(i);
     }
     return pages;
+  }
+
+  createNewEmployee() {
+    this.router.navigate(['/create']);
+  }
+
+  updateSelectedIndex(event: any) {
+    this.filterOptions = event.target.value;
   }
 }

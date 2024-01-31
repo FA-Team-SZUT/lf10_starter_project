@@ -20,7 +20,13 @@ export class DataRequest {
     });
   }
   getEmployeesById(id: string | null) {
-    return this.http.get<Employee[]>('/backend/employees/' + id, {
+    return this.http.get<Employee>('/backend/employees/' + id, {
+      withCredentials: true,
+    });
+  }
+
+  deleteEmployee(id: number | undefined) {
+    return this.http.delete('/backend/employees/' + id, {
       withCredentials: true,
     });
   }
