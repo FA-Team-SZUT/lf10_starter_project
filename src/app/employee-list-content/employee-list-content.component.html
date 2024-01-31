@@ -1,0 +1,23 @@
+<div class="list-group mb-1">
+  <a (click)="goToDetail()" class="list-group-item list-group-item-action" aria-current="true">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ employeeList.firstName}} {{ employeeList.lastName }}</h5>
+      <small>{{ employeeList.id }}</small>
+    </div>
+    <small class="mb-1"><i class="bi bi-telephone"></i><strong> {{ employeeList.phone }}</strong><br /></small>
+    <small><i class="bi bi-house"></i> {{ employeeList.postcode }} {{ employeeList.city }}</small>
+
+    <div class="d-flex">
+      <button type="button" class="btn btn-dark p-1 ms-auto" (click)="toggleExpand($event)">
+        <i class="bi" [ngClass]="{'bi-caret-left-fill': !isExpanded, 'bi-caret-down-fill': isExpanded}"></i>Fähigkeiten
+      </button>
+    </div>
+    <div *ngIf="isExpanded">
+      <ul class=" list-group m-0">
+        <li class="list-group-item" *ngFor="let skillObj of employeeList.skillSet">{{ skillObj.skill }}</li>
+      </ul>
+    </div>
+
+  </a>
+
+</div>
