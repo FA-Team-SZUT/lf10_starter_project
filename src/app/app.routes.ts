@@ -11,21 +11,25 @@ export const routes: Routes = [
   { path: "", component: LandingPageComponent },
   {
     path: "qualifications",
+    title: "Fähigkeiten",
     component: QualificationsComponent,
     canActivate: [authGuardGuard],
   },
   {
     path: "employees",
+    title: "Mitarbeiter",
     component: EmployeeListComponent,
     canActivate: [authGuardGuard],
   },
   {
     path: 'detail/:id',
+    title: 'Mitarbeiter Informationen',
     component: EmployeeDetailComponent,
     canActivate: [authGuardGuard],
   },
   /*{
     path: 'create',
+    title: 'Mitarbeiter erstellen',
     component: EmployeeCreateComponent,
     canActivate: [authGuardGuard],
   }*/
